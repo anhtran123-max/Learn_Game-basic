@@ -1,0 +1,27 @@
+#include <stdio.h>
+enum state{
+	MENU = 0, INGAME, SETTING, GUIDING, INFORMATION, GAMEOVER
+} state;
+int main(){
+	state = MENU;
+    menu();
+while(1){
+	switch (state){
+		case MENU : 
+		menu();
+		break;
+		case INGAME :
+			ingame();
+			break;
+		case GAMEOVER : 
+		    gameover();
+		    break;
+		case INFORMATION :
+			information();
+			break;
+		case  SETTING:
+			setting();
+			break;
+        }
+    }
+}
