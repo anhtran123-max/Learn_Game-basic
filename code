@@ -1,6 +1,6 @@
 #include <stdio.h>
 enum state{
-	MENU = 0, INGAME, SETTING, GUIDING, INFORMATION, GAMEOVER
+	MENU = 0, INGAME, SETTING, INFORMATION, GAMEOVER
 } state;
 int main(){
 	state = MENU;
