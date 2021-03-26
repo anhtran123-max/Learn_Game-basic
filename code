@@ -1,8 +1,17 @@
 #include <stdio.h>
 #include<windows.h>
+#include<conio.h>
+#include<string.h>
+#include<time.h>
+int score;
+int speed=50;
 enum state{
 	MENU = 0, INGAME, SETTING, INFORMATION, GAMEOVER
 } state;
+int Random(int a, int b)
+{
+   return a + rand()%(b-a+1);
+}
 void gotoxy(int x, int y)
 {
     static HANDLE  h = NULL;
@@ -48,7 +57,40 @@ void information(){
 
 
 }
-void setting(){}
+void setting(){
+  system("cls");
+  gotoxy(0,9);
+  printf("an cac phim up down tren ban phim de tang giam toc do, nhan enter de tro ve menu");
+  gotoxy(30,11);
+  printf("toc do hien tai : %d",speed);
+  int key;
+  while(state==SETTING){
+  	if(kbhit()){
+  		key = getch();
+  		switch (key){
+  			//nut trai
+  			case 75 :
+  				if(speed>1){	  
+  				    speed -=1;
+  				    gotoxy(30,11);
+                                    printf("toc do hien tai : %d   ",speed);
+                                 }
+  				break;
+  			//nut phai
+  			case  77 :
+  				if(speed<100){		  
+  				    speed+=1;
+  				    gotoxy(30,11);
+                                     printf("toc do hien tai : %d   ",speed);
+                                }
+  				break;
+  			case 13 :
+  				state = MENU;
+  				break;
+		  }
+	  }
+  }	
+}
 void vekhung(){
     for(int i=0;i<79;i++){
 		printf("#");
