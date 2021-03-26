@@ -1,21 +1,45 @@
 #include <stdio.h>
+#include<windows.h>
 enum state{
 	MENU = 0, INGAME, SETTING, INFORMATION, GAMEOVER
 } state;
+void gotoxy(int x, int y)
+{
+    static HANDLE  h = NULL;
+    if(!h)
+        h = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD c = {x,y};
+    SetConsoleCursorPosition(h,c);
+}
+void menu(){
+     gotoxy(25,3);
+     printf("Game ran an moi cua teo");
+     gotoxy(30,5);
+     printf("1.Bat Dau");
+     gotoxy(30,6);
+     printf("2.Cai Dat ");
+     gotoxy(30,7);
+     printf("3.Thong Tin");  
+     }
+void ingame(){}
+void gameover(){}
+void information(){}
+void setting(){}
 int main(){
 	state = MENU;
     menu();
+    //vong lap vo han
 while(1){
 	switch (state){
 		case MENU : 
 		menu();
 		break;
 		case INGAME :
-			ingame();
-			break;
+		        ingame();
+		        break;
 		case GAMEOVER : 
-		    gameover();
-		    break;
+		        gameover();
+		        break;
 		case INFORMATION :
 			information();
 			break;
