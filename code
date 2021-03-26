@@ -20,10 +20,34 @@ void menu(){
      printf("2.Cai Dat ");
      gotoxy(30,7);
      printf("3.Thong Tin");  
-     }
+}
 void ingame(){}
-void gameover(){}
-void information(){}
+void gameover(){
+        gotoxy(30,9);
+	printf("....Game over....");
+	gotoxy(15,11);
+	printf("Choi ngu duoc co %d diem, an phim bat ki de ve menu",score);
+	gotoxy(27,13);
+	printf("|---- team_1 ----|");
+	getchar();
+	state = MENU;
+
+}
+void information(){
+	gotoxy(10,8);
+	printf("moi gop y vui long gui ve hom thu mail:anhtrankoc@gmail.com");
+	gotoxy(8,9);
+	printf("hoac lien he zalo:0354855613");
+	gotoxy(3,10);
+	printf("chuc ae choi game vui ve, an phim bat ki de tro lai menu");
+	gotoxy(27,11);
+	printf("----team_1----");
+	getchar();
+	state = MENU;
+
+
+
+}
 void setting(){}
 int main(){
 	state = MENU;
