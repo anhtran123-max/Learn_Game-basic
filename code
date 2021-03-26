@@ -49,6 +49,25 @@ void information(){
 
 }
 void setting(){}
+void vekhung(){
+    for(int i=0;i<79;i++){
+		printf("#");
+	}
+	printf("\n");    
+    for(int i=0;i<23;i++){	
+	  for(int j=0;j<79;j++){
+	    if(j==0)
+		 printf("#");
+	    else if(j==78) 
+		  printf("#\n");
+	    else 
+		  printf(" ");
+	}
+      } 
+    for(int i=0;i<79;i++){
+		printf("#");
+	}
+}
 int main(){
 	state = MENU;
     menu();
