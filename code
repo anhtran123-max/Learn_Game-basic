@@ -217,22 +217,22 @@ void setting(){
 }
 void vekhung(){
     for(int i=0;i<79;i++){
-		printf("#");
-	}
-	printf("\n");    
+	printf("#");
+    }
+    printf("\n");    
     for(int i=0;i<23;i++){	
-	  for(int j=0;j<79;j++){
-	    if(j==0)
-		 printf("#");
-	    else if(j==78) 
-		  printf("#\n");
-	    else 
-		  printf(" ");
-	}
+	for(int j=0;j<79;j++){
+	   if(j==0)
+	      printf("#");
+	   else if(j==78) 
+	      printf("#\n");
+	   else 
+	      printf(" ");
+	 }
       } 
     for(int i=0;i<79;i++){
-		printf("#");
-	}
+	printf("#");
+    }
 }
 void ingame(){
 	int key;
@@ -243,7 +243,7 @@ void ingame(){
  	gotoxy(getx(fruit),gety(fruit));
  	printf("O");
  	gotoxy(getx(character[0]),gety(character[0]));
-    printf("#");
+        printf("#");
  	for(int i=1;i<length;i++){
 	    gotoxy(getx(character[i]),gety(character[i]));
 	    printf("o");
