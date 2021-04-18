@@ -3,21 +3,53 @@
 #include<conio.h>
 #include<string.h>
 #include<time.h>
-int character[1000];
-int length = 2;
-int fruit;
-int score;
+// khai bao mot so bien su dung cho chuong trinh
+int character[1000];//bien con ran,1xxyy,khai bao bien toa do 2so ve 1so R->R2
+int length = 2;//bien chieu dai
+int fruit;//bien moi con ran
+int score;// bien diem
 clock_t t;
 int s_e;
-int vx;
-int vy;
-int speed=50;
+int vx;// bien van toc x
+int vy;// bien van toc y
+int speed=50;// bien toc do
 enum state{
 	MENU = 0, INGAME, SETTING, GUIDING, INFORMATION, GAMEOVER
 } state;
+void menu();
+void information();
+void setting();
+void gameover();
+void ingame();
+int main(){
+	state = MENU;
+    menu();
+    // vong lap vo han
+while(1){
+	switch (state){
+		case MENU : 
+		menu();
+		break;
+		case INGAME :
+			ingame();
+			break;
+		case GAMEOVER : 
+		    gameover();
+		    break;
+		case INFORMATION :
+			information();
+			break;
+		case  SETTING:
+			setting();
+			break;
+        }
+    }
+}
+// random ngau nhien vi tri moi
 int Random(int a, int b){
    return a + rand()%(b-a+1);
 }
+// ham toa do tham khao code blogger tran han huy
 void gotoxy(int x, int y){
     static HANDLE  h = NULL;
     if(!h)
@@ -25,6 +57,7 @@ void gotoxy(int x, int y){
     COORD c = {x,y};
     SetConsoleCursorPosition(h,c);
 }
+// ham mau tham khao code blogger tran han huy
 void SetColor(WORD color){ 
     HANDLE hConsoleOutput;
     hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -35,55 +68,58 @@ void SetColor(WORD color){
     wAttributes &= 0xfff0; wAttributes |= color;
     SetConsoleTextAttribute(hConsoleOutput, wAttributes);
 }
+// thong tin chuong trinh
 void information(){
 	system("cls");
 	SetColor(4);
 	gotoxy(10,8);
-	printf("moi gop y vui long gui ve hom thu mail:anhtrankoc@gmail.com");
+	printf("Moi gop y vui long gui ve hom thu mail:anhtrankoc@gmail.com");
 	gotoxy(8,9);
 	printf("hoac lien he zalo:0354855613");
 	gotoxy(3,10);
-	printf("chuc ae choi game vui ve, an phim bat ki de tro lai menu");
+	printf("Chuc ae choi game vui ve, an phim enter de tro lai menu");
 	gotoxy(27,11);
 	SetColor(14);
 	printf("----Team_1----");
 	getchar();
 	state = MENU;
 }
+// cai dat toc do cho con ran
 void setting(){
-  system("cls");
-  gotoxy(0,9);
-  printf("an cac phim up down tren ban phim de tang giam toc do, nhan enter de tro ve menu");
-  gotoxy(30,11);
-  printf("toc do hien tai : %d",speed);
-  int key;
-  while(state==SETTING){
-    if(kbhit()){
-  		key = getch();
-  		switch (key){
-  			//nut trai
-  			case 75 :
-  				if(speed>1){			  
-  				    speed -=1;
-  				    gotoxy(30,11);
-                    printf("toc do hien tai : %d",speed);
-                }
-  				break;
-  			//nut phai
-  			case  77 :
-  				if(speed<100){	  
-  				    speed+=1;
-  					gotoxy(30,11);
-                    printf("toc do hien tai : %d",speed);
-                }
-  				break;
-  			case 13 :
-  				state = MENU;
-  				break;
-		}
-	}
-  }	
+	system("cls");
+	gotoxy(0,9);
+	printf("An cac phim up down tren ban phim de tang giam toc do, nhan enter de tro ve menu");
+	gotoxy(30,11);
+	printf("toc do hien tai : %d",speed);
+	int key;
+	while(state==SETTING){
+        if(kbhit()){
+  		    key = getch();
+  		    switch (key){
+  			    //NOTE: nut trai
+  			    case 75 :
+  				    if(speed>1){			  
+  				        speed -=1;
+  				        gotoxy(30,11);
+                        printf("toc do hien tai : %d",speed);
+                     }
+  				    break;
+  			    //NOTE: nut phai
+  			    case  77 :
+  				    if(speed<100){	  
+  				        speed+=1;
+  					    gotoxy(30,11);
+                        printf("toc do hien tai : %d",speed);
+                    }
+  				    break;
+  			    case 13 :
+  				    state = MENU;
+  				    break;
+		    }
+	    }
+    }	
 }
+//khung cua tro choi
 void vekhung(){
     for(int i=0;i<79;i++){
 		printf("=");
@@ -103,25 +139,27 @@ void vekhung(){
 		printf("=");
 	}
 }
+// ham in ra diem khi nguoi choi ket thuc tro choi
 void gameover(){	
-    SetColor(4);
+    SetColor(48);
     system("cls");
 	gotoxy(30,9);
 	printf("....Game over....");
 	gotoxy(15,11);
 	printf("Choi ngu duoc co %d diem, an phim bat ki de ve menu",score);
 	gotoxy(27,13);
-	printf("|---- team_1 ----|");
+	printf("|---- Tran_Anh ----|");
 	getchar();
 	state = MENU;	
 }
+// ham menu hien ngoai chuong trinh de bat dau tro choi
 void menu(){
-	SetColor(14);
+	SetColor(113);
 	system("cls");
     gotoxy(25,3);
 	printf("Game ran an moi");
 	gotoxy(30,5);
-	SetColor(4);
+	SetColor(203);
 	printf("1.Bat Dau");
 	gotoxy(30,6);
 	printf("2.Cai Dat ");
@@ -199,6 +237,7 @@ void menu(){
 	    }
 	}
 }
+// ham khoi tao gia tri ban dau
 void initgame(){
 	system("cls");
 	s_e = 120-speed;
@@ -219,24 +258,28 @@ void initgame(){
 	character[9] = 10610;
 	fruit = 15010;
 }
+//ham tao moi o vi tri ngau nhien
 void creatfruit(){
 	int notok = 1;
 	while(notok){
 		notok = 0;
 		fruit = 10000 + Random(1,77)*100 + Random(1,23);
 		for(int i=0;i<length;i++){
+			//tranh vi tri moi random trung vao vi tri con ran
 		    if(character[i]	== fruit){
 			    notok = 1;
 		    }
 		}
 	}
 }
+//ham chuyen toa do 2so ve 1so
 int getx(int a){
 	return (a-10000)/100;
 }
 int gety(int a){
 	return a%100;
 }
+//bang thanh tich nguoi choi
 void drawscore(){
 	gotoxy(79,3);
  	printf("s");
@@ -259,6 +302,7 @@ void drawscore(){
  	gotoxy(79,13);
  	printf("0");
 }
+//ham cong diem khi an moi
 void addscore(){
 	SetColor(14);
 	gotoxy(79,9); 
@@ -279,19 +323,25 @@ void ingame(){
  	drawscore();
  	state = INGAME;
  	SetColor(13);
+ 	//cau lenh khoi tao vi tri moi con ran
  	gotoxy(getx(fruit),gety(fruit));
  	printf("O");
  	SetColor(12);
+ 	//cau lenh khoi tao vi tri dau la dau con ran 
  	gotoxy(getx(character[0]),gety(character[0]));
 	printf("F");
 	SetColor(2);
+	//duoi con ran (o) 
  	for(int i=1;i<length;i++){
 		gotoxy(getx(character[i]),gety(character[i]));
 		printf("o");
 	}
+	//state dieu khien man hinh con ran
 	while(state == INGAME){
+		//ham kbhit() tra ve gia tri true khi =1 còn 0 la k tra ve gia tri nao ca
 	    if(kbhit()){
-			key = getch();
+			key = getch();// kiem tra phim
+			// dieu khien con ran
 			switch (key) {
 				//nut len
 				case 72:
@@ -322,8 +372,10 @@ void ingame(){
 					}
 					break;		
 			}						     
-	    }	
+	    }
+		// cau lenh tang chieu dai con ran khi an moi	
 	    if((clock()-t)>=s_e){
+	    	//xoa duoi con ran o vi tri cu
 		    if(character[length-1]!=0){			
 			    gotoxy(getx(character[length-1]),gety(character[length-1]));
 			    printf(" ");
@@ -337,29 +389,34 @@ void ingame(){
 		    character[0] += vx*100;
 		    character[0] += vy;	
 		    if(character[0] == fruit){
-		        length+= 1;
-		        score += (speed/10 + 5);
+		        length+= 1;//tang chieu dai khi an moi
+		        score += (speed/10 + 5);// tang diem khi an moi
 		        addscore();
 		        creatfruit();
 		        SetColor(13);
 		        gotoxy(getx(fruit),gety(fruit));
  	            printf("O");
 		    }
+		    //khi con ran chay cham khung trai thi xuat hien o khung phai
 		    if((vx>0)&&(getx(character[0])==78)){
 			    character[0]-=7700;
-		    }    
+		    } 
+			//khi con ran chay cham khung phai thi xuat hien o khung trai   
 		    if((vx<0)&&(getx(character[0])==0)){
 			    character[0]+=7700;
-		    }  
+		    }
+			//khi con ran xuong duoi cham khung thi xuat hien o khung tren  
 		    if((vy>0)&&(gety(character[0])==24)){
 			    character[0]-=23;
-		    }   
+		    }
+			//khi con ran di len cham khung thi xuat hien o khung duoi   
 		    if((vy<0)&&(gety(character[0])==0)){
 			    character[0]+=23;
 		    }   
 		    SetColor(12);
 		    gotoxy(getx(character[0]),gety(character[0]));
 		    printf("F");
+		    // khi dieu khien dau con ran cham vao  than ran la ran die
 		    for(int i=1;i<length;i++){
 			    if(character[i]==character[0]){
 				    system("cls");					
@@ -369,27 +426,4 @@ void ingame(){
 		    t = clock();  		    
 	    }	
 	}	
-}
-int main(){
-	state = MENU;
-    menu();
-while(1){
-	switch (state){
-		case MENU : 
-		menu();
-		break;
-		case INGAME :
-			ingame();
-			break;
-		case GAMEOVER : 
-		    gameover();
-		    break;
-		case INFORMATION :
-			information();
-			break;
-		case  SETTING:
-			setting();
-			break;
-        }
-    }
 }
